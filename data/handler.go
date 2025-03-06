@@ -99,3 +99,24 @@ func (h *UserHandler) UpdateBadge(w http.ResponseWriter, r *http.Request) {
 
 	util.WriteJSON(w, http.StatusOK, payload)
 }
+
+func (h *UserHandler) AskGemini(w http.ResponseWriter, r *http.Request) {
+	type AskGeminiPayload struct {
+		Message string `json:"message"`
+	}
+	var payload AskGeminiPayload
+
+	err := json.NewDecoder(r.Body).Decode(&payload)
+	if err != nil {
+		util.WriteError(w, err)
+		return
+	}
+
+	response, err := h.usecase.AskGemini(payload.Message)
+	if err != nil {
+		util.WriteError(w, err)
+		return
+	}
+
+	util.WriteJSON(w, http.StatusOK, response)
+}

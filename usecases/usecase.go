@@ -40,3 +40,7 @@ func (usecase *UserUsecase) UpdateBadge(id int, badge string) error {
 	}
 	return nil
 }
+
+func (usecase *UserUsecase) AskGemini(message string) (string, error) {
+	return usecase.repo.AskGemini(message)
+}

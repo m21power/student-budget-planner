@@ -15,4 +15,5 @@ type UserRepository interface {
 	Register(name, email, password string) error
 	GetUser(id int) (UserModel, error)
 	UpdateBadge(id int, badge string) error
+	AskGemini(message string) (string, error)
 }
